@@ -1,0 +1,114 @@
+﻿<Controls:Flyout x:Class="Inventory.Views.Purchase.ShowPurchase"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                  xmlns:Inventory="clr-namespace:Inventory.Model"
+                 mc:Ignorable="d"
+                 d:DataContext="{d:DesignInstance Inventory:SalesViewModel}"                   
+                  
+                 d:DesignHeight="600"
+                 d:DesignWidth="300"
+                 Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Controls:MetroWindow}, Path=ActualWidth, Mode=OneWay}"
+                 x:Name="showPurchaseFlyout"
+                 Header="{DynamicResource Purchase Records}"
+                 Position="Right"
+                 Theme="Accent"
+                 CloseCommand="{Binding ElementName=showPurchaseFlyout, Path=CloseCmd}" IsOpenChanged="showPurchaseFlyout_IsOpenChanged">
+
+    <Controls:Flyout.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ListView.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- for testing -->
+            <SolidColorBrush x:Key="ListViewBackground" Color="White" />
+
+            <Style x:Key="CustomListViewItemStyle"
+                   TargetType="{x:Type ListViewItem}"
+                   BasedOn="{StaticResource MetroListViewItem}">
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Style x:Key="CustomGridViewColumnHeader"
+                   TargetType="{x:Type GridViewColumnHeader}"
+                   BasedOn="{StaticResource MetroGridViewColumnHeader}">
+                <Style.Resources>
+                    <SolidColorBrush x:Key="GrayBrush8"
+                                     Color="#FFE0E0E0" />
+                </Style.Resources>
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
+        </ResourceDictionary>
+    </Controls:Flyout.Resources>
+
+    <StackPanel Orientation="Vertical"  Margin="30">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel>
+
+            </StackPanel>
+            <ScrollViewer Grid.Row="1"
+                                  VerticalScrollBarVisibility="Auto">
+                <StackPanel Orientation="Vertical">
+
+                    <DataGrid  Style="{DynamicResource AzureDataGrid}"
+                  Height="200" 
+                               ItemsSource="{Binding Purchase}" 
+                  Margin="0, 10, 0, 0"
+                  RenderOptions.ClearTypeHint="Enabled"
+                  TextOptions.TextFormattingMode="Display"
+                  HeadersVisibility="All"
+                  SelectionUnit="FullRow" 
+                               CanUserAddRows="false"
+                               
+                  BorderThickness="0" x:Name="datalist"  
+                               AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="#BILL"
+                                    Binding="{Binding PurchaseBill}" />
+                            <DataGridTextColumn Binding="{Binding Customer.Cname}"
+                                    Header="{DynamicResource Customer}" />
+                            <DataGridTextColumn Header="{DynamicResource Product}"
+                                    Binding="{Binding Product.Pname}" />
+                            <DataGridTextColumn Header="{DynamicResource Quantity}"
+                                    Binding="{Binding Quantity}" />
+                            <DataGridTextColumn Header="{DynamicResource Price}"
+                                    Binding="{Binding Price}" />
+                            <DataGridTextColumn Header="{DynamicResource Total :}"
+                                    Binding="{Binding TotalAmount}" />
+                            <DataGridTextColumn Header="{DynamicResource Advance}"
+                                    Binding="{Binding Advance}" />
+                            <DataGridTextColumn Header="{DynamicResource Remaining Balance :}"
+                                    Binding="{Binding RemainingBalance}" />
+                            <DataGridTextColumn Header="{DynamicResource Date}"
+                                    Binding="{Binding SaleDate , StringFormat=dd-MM-yyy}" />
+
+                            <DataGridTemplateColumn Header="Generate Bill" Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Bill" Click="GenerateBill" CommandParameter="{Binding}" ></Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    
+                </StackPanel>
+         
+            </ScrollViewer>
+
+        </Grid>
+        <Label Content="Note : *In Remaining Balance column (-) sign represnt that Customer has credited extra amount." FontSize="13" HorizontalAlignment="Left" Height="28" Margin="10,0,-347,0" Width="577"/>
+
+    </StackPanel>
+</Controls:Flyout>

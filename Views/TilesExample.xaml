@@ -1,0 +1,175 @@
+﻿<UserControl x:Class="Inventory.Views.TilesExample"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:metroDemo="clr-namespace:Inventory.Model"
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             Loaded="UserControl_Loaded"
+             d:DesignWidth="300"
+             xmlns:Views="clr-namespace:Inventory.Views"
+             d:DataContext="{d:DesignInstance metroDemo:MainViewModel}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro.Resources;component/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="LargeTileStyle"
+                   TargetType="Controls:Tile">
+                <Setter Property="Width"
+                        Value="300" />
+                <Setter Property="Height"
+                        Value="128" />
+                <Setter Property="TitleFontSize"
+                        Value="13" />
+            </Style>
+
+            <Style x:Key="BigTile"
+                   TargetType="Controls:Tile">
+                <Setter Property="Width"
+                        Value="300" />
+                <Setter Property="Height"
+                        Value="250" />
+                <Setter Property="TitleFontSize"
+                        Value="12" />
+            </Style>
+
+            <Style x:Key="SmallTileStyle"
+                   TargetType="Controls:Tile">
+                <Setter Property="Width"
+                        Value="147" />
+                <Setter Property="Height"
+                        Value="125" />
+                <Setter Property="TitleFontSize"
+                        Value="13" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Visible"
+                  VerticalScrollBarVisibility="Disabled">
+        <Grid Background="{DynamicResource AccentColorBrush4}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="150*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*" />
+                <RowDefinition Height="259*" />
+            </Grid.RowDefinitions>
+         
+
+            <WrapPanel Grid.Row="1"
+                       Grid.Column="1"
+                       Width="940"
+                       Height="382"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top">
+                <Controls:Tile Title="{DynamicResource customer}"
+                                x:Name="customer"                            
+                               Style="{StaticResource LargeTileStyle}"
+                               Background="Teal"
+                               Margin="3" Click="Tile_Click">
+                    <Grid Width="40"
+                          Background="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Controls:Tile}}}">
+                        <Grid.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_group}" />
+                        </Grid.OpacityMask>
+                    </Grid>
+                </Controls:Tile>
+                <Controls:Tile Title="{DynamicResource product}"
+                               Style="{StaticResource LargeTileStyle}"
+                               x:Name="product"                               
+                               Click="Tile_Click_2"
+                               Margin="3">
+                    <Grid Width="40"
+                          Background="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                        <Grid.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_marketplace}" />
+                        </Grid.OpacityMask>
+                    </Grid>
+                </Controls:Tile>
+                <Controls:Tile Title="{DynamicResource filter}"
+                               Style="{StaticResource LargeTileStyle}"
+                                    x:Name="filter"
+                               Background="#FF937FB8" 
+                               Margin="3" Click="Tile_Click_6">
+
+                    <Grid Width="40"
+                          Background="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                        <Grid.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_filter}" />
+                        </Grid.OpacityMask>
+                    </Grid>
+
+                </Controls:Tile>
+
+                <Controls:Tile Title="{DynamicResource sales}"
+                               Style="{StaticResource LargeTileStyle}"
+                               x:Name="sales"                             
+                                 Background="#D2691E"
+                               Margin="3" Click="Tile_Click_1">
+                    <Grid Width="40"
+                		Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                        <Grid.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                				Visual="{DynamicResource appbar_forsale}" />
+                        </Grid.OpacityMask>
+                    </Grid>
+                </Controls:Tile>
+                <Controls:Tile Title="{DynamicResource purchase}"
+                               Style="{StaticResource LargeTileStyle}"
+                               x:Name="purchase"                             
+                                 Background="#1E90FF"
+                               Margin="3" Click="Tile_Click_3">
+                    <Grid Width="40"
+                          Background="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                        <Grid.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_lifesaver}" />
+                        </Grid.OpacityMask>
+                    </Grid>
+                </Controls:Tile>
+                <!--<Controls:Tile Title="Purchase"
+                               Style="{StaticResource LargeTileStyle}"
+                              Background="#1E90FF" Click="Tile_Click_3"/>-->
+                <Controls:Tile Title="{DynamicResource Account_Records}"
+                               Style="{StaticResource SmallTileStyle}"
+                              Click="Account_Click"
+                               x:Name="Account"                                  
+                              
+                               Margin="3">
+                    <Grid Width="40"
+                          Background="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                        <Grid.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_currency_rupee}" />
+                        </Grid.OpacityMask>
+                    </Grid>
+                </Controls:Tile>
+                <Controls:Tile Title="{DynamicResource Settings}"
+                               Style="{StaticResource SmallTileStyle}"
+                              Click="Tile_Click_5"
+                               x:Name="settings"                                  
+                               Background="OliveDrab"
+                               Margin="3">
+                    <Grid Width="40"
+                          Background="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                        <Grid.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_settings}" />
+                        </Grid.OpacityMask>
+                    </Grid>
+                </Controls:Tile>
+
+            </WrapPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

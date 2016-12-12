@@ -1,0 +1,142 @@
+﻿<Controls:Flyout  x:Class="Inventory.Views.Reports.GridResult"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 mc:Ignorable="d"
+                 d:DesignHeight="600"
+                 d:DesignWidth="300"
+                 Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Controls:MetroWindow}, Path=ActualWidth, Mode=OneWay}"
+                 x:Name="GridResultFlyout"
+                 Header="{DynamicResource Records}"
+                 Position="Right"
+                 Theme="Accent"   
+                 xmlns:Inventory="clr-namespace:Inventory.Model"
+                 d:DataContext="{d:DesignInstance Inventory:SalesViewModel}"                   
+                 Loaded="GridResultFlyout_Loaded"
+                 CloseCommand="{Binding ElementName=GridResultFlyout, Path=CloseCmd}">
+
+    <Controls:Flyout.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ListView.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro.Resources;component/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- for testing -->
+            <SolidColorBrush x:Key="ListViewBackground" Color="White" />
+            <Style x:Key="CustomListViewItemStyle"
+                   TargetType="{x:Type ListViewItem}"
+                   BasedOn="{StaticResource MetroListViewItem}">
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Style x:Key="CustomGridViewColumnHeader"
+                   TargetType="{x:Type GridViewColumnHeader}"
+                   BasedOn="{StaticResource MetroGridViewColumnHeader}">
+                <Style.Resources>
+                    <SolidColorBrush x:Key="GrayBrush8"
+                                     Color="#FFE0E0E0" />
+                </Style.Resources>
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
+        </ResourceDictionary>
+    </Controls:Flyout.Resources>
+    <StackPanel Orientation="Vertical"  Margin="30,0,36,0" Height="388">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid Margin="0,31,10,0">
+                <Label Content="{DynamicResource In_Stock}" x:Name="stock" Style="{DynamicResource DescriptionHeaderStyle}" Margin="0,23,0,70" Width="180" Foreground="Gainsboro" HorizontalAlignment="Left" />
+                <Label Content="Qty" x:Name="stockqty" Style="{DynamicResource DescriptionHeaderStyle}" Margin="185,23,-142,70" Width="161" Foreground="Gainsboro" HorizontalAlignment="Left" />
+
+                <Label Visibility="Hidden" Content="{DynamicResource Remaining Balance :}" x:Name="bal_Copy" Style="{DynamicResource DescriptionHeaderStyle}" Margin="0,81,0,15" Width="204" Foreground="Gainsboro" HorizontalAlignment="Left" />
+                <Label Visibility="Hidden" Content="{DynamicResource Total :}" x:Name="adv_Copy" Style="{DynamicResource DescriptionHeaderStyle}" Margin="457,81,-427,15" Width="174" Foreground="Gainsboro" HorizontalAlignment="Left" />
+
+                <Label Visibility="Hidden" Content="Advance" x:Name="advance" Style="{DynamicResource DescriptionHeaderStyle}" Margin="636,81,-642,15" Foreground="Gainsboro" HorizontalAlignment="Stretch" />
+                <Label Visibility="Hidden" Content="Balance" x:Name="balance" Style="{DynamicResource DescriptionHeaderStyle}" Margin="185,81,-253,15" Width="272" Foreground="Gainsboro" HorizontalAlignment="Left" />
+
+            </Grid>
+            <StackPanel Margin="-63,0,65,125">
+                <ComboBox  x:Name="showCustomer"             
+                    Controls:TextBoxHelper.ClearTextButton="True"
+            	Controls:TextBoxHelper.Watermark="Please Select ..."
+            	Margin="-8,10,24,0"                
+            	IsEnabled="{Binding IsChecked, ElementName=enabledcustomerSwitch}"
+            	IsEditable="False" Height="26" VerticalAlignment="Top"  HorizontalAlignment="Right" Width="198"  SelectionChanged="showCustomer_SelectionChanged" Background="#FFE0BBBB"  >
+                    <ComboBoxItem>
+                        <TextBlock FontWeight="Bold"><Run Text="BOTH"/></TextBlock>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <TextBlock FontWeight="Bold"><Run Text="PURCHASE"/></TextBlock>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <TextBlock FontWeight="Bold"><Run Text="SALES"/></TextBlock>
+                    </ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            <ScrollViewer Grid.Row="1"
+                                  VerticalScrollBarVisibility="Auto">
+
+                <StackPanel Orientation="Vertical">
+
+                    <DataGrid  Style="{DynamicResource AzureDataGrid}"
+                  Height="200" 
+                               ItemsSource="{Binding Sales}" 
+                  Margin="0, 10, 0, 0"
+                  RenderOptions.ClearTypeHint="Enabled"
+                  TextOptions.TextFormattingMode="Display"
+                  HeadersVisibility="All"
+                  SelectionUnit="FullRow" 
+                               CanUserAddRows="false"
+                               
+                  BorderThickness="0" x:Name="datalist"  
+                               AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Customer.Cname}"
+                                    Header="{DynamicResource Customer}" />
+                            <DataGridTextColumn Header="{DynamicResource Product}"
+                                    Binding="{Binding Product.Pname}" />
+                            <DataGridTextColumn Header="{DynamicResource Quantity}"
+                                    Binding="{Binding Quantity}" />
+                            <DataGridTextColumn Header="{DynamicResource Price}"
+                                    Binding="{Binding Price}" />
+                            <DataGridTextColumn Header="{DynamicResource Total :}"
+                                    Binding="{Binding TotalAmount}" />
+                            <DataGridTextColumn Header="{DynamicResource Advance}"
+                                    Binding="{Binding Advance}" />
+                            <DataGridTextColumn Header="{DynamicResource Remaining Balance :}"
+                                    Binding="{Binding RemainingBalance}" />
+                            <DataGridTextColumn Header="{DynamicResource Date}"
+                                    Binding="{Binding SaleDate , StringFormat=dd-MM-yyy}" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </ScrollViewer>
+
+
+            <Button   Click="Button_Click"                  
+            			Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Download" Margin="0,0,10,0" HorizontalAlignment="Right" Width="50" Height="50" VerticalAlignment="Top" >
+                <Rectangle Width="20"
+            				Height="20"
+            				Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+            						Visual="{DynamicResource appbar_download}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </Grid>
+
+
+    </StackPanel>
+
+</Controls:Flyout>

@@ -1,0 +1,109 @@
+﻿<Controls:Flyout x:Class="Inventory.Views.EditCustomer"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:Inventory="clr-namespace:Inventory.Model"
+        mc:Ignorable="d"
+        d:DesignHeight="600"
+        d:DesignWidth="300"
+        Width="500"
+        x:Name="editcustomerFlyout"
+        Header="{DynamicResource Edit Customer}"
+        Position="Right"
+        Theme="Accent"
+        d:DataContext="{d:DesignInstance Inventory:CustomerViewModel}"       
+        CloseCommand="{Binding ElementName=editcustomerFlyout, Path=CloseCmd}" IsOpenChanged="editcustomerFlyout_IsOpenChanged">
+
+
+    <Controls:Flyout.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ListView.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- for testing -->
+            <SolidColorBrush x:Key="ListViewBackground" Color="White" />
+
+            <Style x:Key="CustomListViewItemStyle"
+                   TargetType="{x:Type ListViewItem}"
+                   BasedOn="{StaticResource MetroListViewItem}">
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Style x:Key="CustomGridViewColumnHeader"
+                   TargetType="{x:Type GridViewColumnHeader}"
+                   BasedOn="{StaticResource MetroGridViewColumnHeader}">
+                <Style.Resources>
+                    <SolidColorBrush x:Key="GrayBrush8"
+                                     Color="#FFE0E0E0" />
+                </Style.Resources>
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
+        </ResourceDictionary>
+    </Controls:Flyout.Resources>
+
+    <ScrollViewer Grid.Row="1"
+         VerticalScrollBarVisibility="Auto">
+        <StackPanel  x:Name="selectFirst">
+            <Grid FlowDirection="LeftToRight" Width="508">
+
+                <ComboBox Width="200" x:Name="customername"
+        			Margin="41,0,259,10"
+        			Style="{DynamicResource VirtualisedMetroComboBox}"
+        			Controls:TextBoxHelper.Watermark="Search . . ."
+        			DisplayMemberPath="Cname"
+                    SelectedValuePath="Cid" 
+        			IsEditable="True"
+        			ItemsSource="{Binding Customers}"
+        			MaxDropDownHeight="125"                          
+                          SelectionChanged="customername_SelectionChanged"
+        		 />                
+              
+            </Grid>
+            <StackPanel Margin="10 0 10 0" x:Name="datastack" Orientation="Vertical" >
+                <TextBlock  Visibility="Hidden" x:Name="cid" Text="{Binding Customer.Cid,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
+                <TextBox x:Name="Cname"
+        			Controls:TextBoxHelper.Watermark="Enter the Name"
+                         KeyUp="Cname_KeyUp"
+        			Text="{Binding Customer.Cname ,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, ValidatesOnDataErrors=True,
+                        NotifyOnValidationError=True}"
+                             
+                             />
+                <TextBox Margin="0,5,0,0" x:Name="CAddress"
+        			Controls:TextBoxHelper.Watermark="Enter Address"
+        			Text="{Binding Customer.Address, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, ValidatesOnDataErrors=True,
+                        NotifyOnValidationError=True}"
+                             />
+                <TextBox Margin="0,5,0,0" x:Name="CEmail"
+        			Controls:TextBoxHelper.Watermark="Email" 
+                             
+        			Text="{Binding Customer.Email,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, ValidatesOnDataErrors=True,
+                        NotifyOnValidationError=True}"       
+                             />
+                <TextBox Margin="0,5,0,0" x:Name="ContactNumar"
+        			Controls:TextBoxHelper.Watermark="Contact Number"
+                         KeyUp="ContactNumar_KeyUp"
+        			Text="{Binding Customer.ContactNo,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, ValidatesOnDataErrors=True,
+                        NotifyOnValidationError=True}" MaxLength="10"                 
+                             />
+                <Grid 
+                	Margin="10" Height="54">
+                    <Button Style="{DynamicResource SquareButtonStyle}"
+                		Margin="0,9,175,10"
+                		Width="108"
+                		Content="{DynamicResource DELETE}"  x:Name="Cdelete" Command="{Binding DeleteCommand}"/>
+                    <Button Style="{DynamicResource SquareButtonStyle}"
+                		Margin="0,8,84,10"
+                		Width="106"
+                		Content="{DynamicResource Update}" Command="{Binding UpdateCommand}" x:Name="CreateUpdate" HorizontalAlignment="Right" />
+                </Grid>
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</Controls:Flyout>

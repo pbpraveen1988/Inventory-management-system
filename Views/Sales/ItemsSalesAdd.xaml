@@ -1,0 +1,205 @@
+﻿<Controls:Flyout x:Class="Inventory.Views.Sales.ItemsSalesAdd"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"                                    
+                 xmlns:Inventory="clr-namespace:Inventory.Model"
+                 mc:Ignorable="d"
+                 d:DataContext="{d:DesignInstance Inventory:SalesViewModel}"       
+                 Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Controls:MetroWindow}, Path=ActualWidth, Mode=OneWay}"
+              
+                 x:Name="ItemsalesAdd"
+                 Header="{DynamicResource Add Sales}"
+                 Position="Right"
+                 Theme="Accent"
+                 CloseCommand="{Binding ElementName=ItemsalesAddFlyout, Path=CloseCmd}" IsOpenChanged="ItemsalesAdd_IsOpenChanged">
+
+
+    <Controls:Flyout.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ListView.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro.Resources;component/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- for testing -->
+            <SolidColorBrush x:Key="ListViewBackground" Color="White" />
+
+            <Style x:Key="CustomListViewItemStyle"
+                   TargetType="{x:Type ListViewItem}"
+                   BasedOn="{StaticResource MetroListViewItem}">
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Style x:Key="CustomGridViewColumnHeader"
+                   TargetType="{x:Type GridViewColumnHeader}"
+                   BasedOn="{StaticResource MetroGridViewColumnHeader}">
+                <Style.Resources>
+                    <SolidColorBrush x:Key="GrayBrush8"
+                                     Color="#FFE0E0E0" />
+                </Style.Resources>
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
+        </ResourceDictionary>
+    </Controls:Flyout.Resources>
+
+    <StackPanel Orientation="Vertical"  Margin="30,0" Height="429">
+        <Grid Margin="10,10,0,10" Height="163" HorizontalAlignment="Left" Width="920">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="112*" />
+                <RowDefinition Height="69*"/>
+                <RowDefinition Height="Auto" MinHeight="8" />
+            </Grid.RowDefinitions>
+            <StackPanel Margin="0,0,0,112" Grid.RowSpan="2"/>
+            <Grid Grid.Row="1"
+        		Height="104" VerticalAlignment="Top" HorizontalAlignment="Left" Width="469" Margin="10,20,0,0" Grid.RowSpan="2">
+                <StackPanel Orientation="Vertical" Height="81" Width="599" Margin="42,0,-172,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <ComboBox Width="320" x:Name="showCustomer"      
+                              
+        				DisplayMemberPath="Cname" 
+        				SelectedValuePath="Cid"    
+                              TabIndex="0"
+        			
+        				Controls:TextBoxHelper.ClearTextButton="True"
+        				Controls:TextBoxHelper.Watermark="Please Select Customer..."
+        				Margin="24,10,0,0"
+        				SelectionChanged="showCustomer_SelectionChanged" HorizontalAlignment="Left" Height="32"
+                         />
+                    <TextBlock  Visibility="Hidden" x:Name="cid" Text="{Binding Sale.Customer.Cid, Mode=TwoWay}" />
+
+                    <TextBlock  Visibility="Hidden" x:Name="pid" Text="{Binding Sale.Product.Pid, Mode=TwoWay}"/>
+
+
+                </StackPanel>
+                <TextBlock x:Name="CustomerDetailtxt" HorizontalAlignment="Left"  Height="59" Margin="402,0,-151,26" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+
+            </Grid>
+            <TextBox Margin="277,9,0,0" x:Name="Price"
+        		Controls:TextBoxHelper.Watermark="Enter the Unit Price" 
+                     TabIndex="3"
+        		 KeyUp="Price_KeyUp" LostFocus="Price_LostFocus" Grid.Row="2" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120"
+                             />
+            <ComboBox x:Name="showProduct"
+        		ItemsSource="{Binding Products, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+        		DisplayMemberPath="Pname" 
+        		SelectedValuePath="Pid" 
+                      TabIndex="2"
+        		Controls:TextBoxHelper.ClearTextButton="True"
+        		Controls:TextBoxHelper.Watermark="Please Select Product..."
+        		Margin="74,9,0,0"
+        		SelectionChanged="showProduct_SelectionChanged" Grid.Row="2" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="198"
+                         />
+            <TextBox Margin="402,10,0,0" x:Name="Qty"
+        		Controls:TextBoxHelper.Watermark="Enter the Quantity" 
+        		LostFocus="Qty_LostFocus"
+                     TabIndex="4"
+        		 KeyUp="Qty_KeyUp"
+                      
+        		Grid.Row="2" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="114"
+                      
+                             />
+            <TextBox Margin="731,10,0,0" x:Name="TotalAmount"
+        		Controls:TextBoxHelper.Watermark="Total Amount"
+        		IsEnabled="False"                           
+        		Text="{Binding Sale.TotalAmount}"
+        		Grid.Row="2" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="125"
+                             />
+            <DatePicker Margin="74,66,0,0" x:Name="SalesDate"
+        		FontSize="15"
+                TabIndex="1"
+        		SelectedDate="{Binding Sale.SaleDate, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+        		SelectedDateFormat="Short"   Controls:TextBoxHelper.Watermark="Sales Date" Grid.Row="1" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="323" Grid.RowSpan="2" />
+            <Button  
+                x:Name="AddItem"
+                Click="Button_Click"
+                TabIndex="7"
+        		Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Add More" Margin="875,10,0,0" Grid.Row="2" HorizontalAlignment="Left" Width="28" Height="28" VerticalAlignment="Top" >
+                <Rectangle Width="20"
+        			Height="20"
+        			Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+        					Visual="{DynamicResource appbar_add}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+            <TextBox Margin="521,10,0,0" x:Name="discounttxt"
+            	Controls:TextBoxHelper.Watermark="Discount" 
+                TabIndex="5"
+            	Grid.Row="2" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="101" LostFocus="discounttxt_LostFocus" KeyUp="discounttxt_KeyUp"
+                      
+                             />
+            <TextBox Margin="627,9,0,0" x:Name="vattxt"
+            	Controls:TextBoxHelper.Watermark="Vat"             	
+                TabIndex="6"
+            	Grid.Row="2" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="99" RenderTransformOrigin="0.151,0.464" LostFocus="vattxt_LostFocus" KeyUp="vattxt_KeyUp"
+                      
+                             />
+            <Label  FontWeight="Bold" x:Name="mrplbl" Margin="105,42,0,0" Grid.Row="2" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="133" Grid.RowSpan="2"/>
+            <Label x:Name="billlbl" Content="Label" HorizontalAlignment="Left" Height="28" Margin="663,31,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="229" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Width="673" Height="188" Margin="142,0,0,0">
+            <DataGrid  Style="{DynamicResource AzureDataGrid}"
+        		Margin="-58,10,-50,0"   
+        		RenderOptions.ClearTypeHint="Enabled"
+        		TextOptions.TextFormattingMode="Display"
+        		HeadersVisibility="All"
+        		SelectionUnit="FullRow"
+        		CanUserAddRows="false"
+        		BorderThickness="0"  x:Name="datalist" 
+        		AutoGenerateColumns="False" 
+        		HorizontalAlignment="Left"
+        		Width="781" Height="142"
+        		VerticalAlignment="Top">
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Code"
+        				Binding="{Binding ProductCode}" />
+                    <DataGridTextColumn Header="{DynamicResource Product}"
+        				Binding="{Binding Product}" />
+                    <DataGridTextColumn Header="Mrp"
+                                    Binding="{Binding Mrp}" />
+                    <DataGridTextColumn Header="{DynamicResource Price}"
+        				Binding="{Binding Price}" />
+                    <DataGridTextColumn Header="{DynamicResource Quantity}"
+        				Binding="{Binding Qty}" />
+                    <DataGridTextColumn Header="Discount"
+        				Binding="{Binding Discount}" />
+                    <DataGridTextColumn Header="Vat"
+        				Binding="{Binding Vat}" />
+                    <DataGridTextColumn Header="{DynamicResource Total :}"
+        				Binding="{Binding TotalAmount}" />
+                    <DataGridTemplateColumn Header="Delete" Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Click="Delete" CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBox IsEnabled="False" FontWeight="ExtraBold" x:Name="totalcaltxt" Margin="381,157,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="105"/>
+
+        </Grid>
+        <Grid Height="42" VerticalAlignment="Bottom" Margin="425,0,67,0" Width="515">
+            <Button Style="{DynamicResource SquareButtonStyle}"
+        		Cursor="Hand" IsDefault="True"                   
+        		Content="{DynamicResource CREATE}" Click="Button_Click_1" Margin="221,4,0,0" HorizontalAlignment="Left" Width="192" Height="28" VerticalAlignment="Top" />
+
+            <TextBox  x:Name="Advanced"
+        		TabIndex="9"                    
+        		Controls:TextBoxHelper.Watermark="Advanced"
+        		KeyUp="Advanced_KeyUp" Margin="98,4,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="105"
+                             />
+        </Grid>
+
+
+    </StackPanel>
+
+
+</Controls:Flyout>

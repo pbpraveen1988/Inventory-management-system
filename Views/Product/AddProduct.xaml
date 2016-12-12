@@ -1,0 +1,97 @@
+﻿<Controls:Flyout x:Class="Inventory.Views.Product.AddProduct"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 Loaded="addproductFlyout_Loaded"
+                    xmlns:Inventory="clr-namespace:Inventory.Model"
+                 mc:Ignorable="d"
+                 d:DataContext="{d:DesignInstance Inventory:ProductViewModel}" 
+                 d:DesignHeight="600"
+                 d:DesignWidth="300"
+                 Width="500"
+                 x:Name="addproductFlyout"
+                 Header="Add Product"
+                 Position="Right"
+                 Theme="Accent"
+                 CloseCommand="{Binding ElementName=addproductFlyout, Path=CloseCmd}" IsOpenChanged="addproductFlyout_IsOpenChanged">
+
+    <Controls:Flyout.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ListView.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- for testing -->
+            <SolidColorBrush x:Key="ListViewBackground" Color="White" />
+
+            <Style x:Key="CustomListViewItemStyle"
+                   TargetType="{x:Type ListViewItem}"
+                   BasedOn="{StaticResource MetroListViewItem}">
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Style x:Key="CustomGridViewColumnHeader"
+                   TargetType="{x:Type GridViewColumnHeader}"
+                   BasedOn="{StaticResource MetroGridViewColumnHeader}">
+                <Style.Resources>
+                    <SolidColorBrush x:Key="GrayBrush8"
+                                     Color="#FFE0E0E0" />
+                </Style.Resources>
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
+        </ResourceDictionary>
+    </Controls:Flyout.Resources>
+    <StackPanel Orientation="Vertical"  Margin="30">
+        <Grid Margin="10" Height="181">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel>
+
+            </StackPanel>
+            <ScrollViewer Grid.Row="1"
+                                  VerticalScrollBarVisibility="Auto">
+                <StackPanel Orientation="Vertical">
+                    <TextBox x:Name="pname" TabIndex="0"
+                                     Controls:TextBoxHelper.Watermark="Enter the Product Name"
+                             Text="{Binding Product.Pname , ValidatesOnDataErrors=True,
+                        NotifyOnValidationError=True,UpdateSourceTrigger=PropertyChanged}"
+                             
+                             />
+                    <TextBox Margin="0,5,0,0" x:Name="description"
+                                     Controls:TextBoxHelper.Watermark="Enter Description"
+                             TabIndex="1"
+                             Text="{Binding Product.Description}"
+                             />
+
+                </StackPanel>
+            </ScrollViewer>
+            <UniformGrid Columns="1"
+                                 Grid.Row="2"
+                                 Margin="0,68,20,-48">
+                <Button Style="{DynamicResource SquareButtonStyle}"
+                                Margin="10,10,0,0"
+                        TabIndex="3"
+                                Content="{DynamicResource CREATE}" Command="{Binding Cmd}" HorizontalAlignment="Left" Width="380" Height="28" VerticalAlignment="Top" IsDefault="True" />
+
+            </UniformGrid>
+            <TextBox x:Name="mrptxt"
+            	Controls:TextBoxHelper.Watermark="Enter Mrp"
+            	Text="{Binding Product.Mrp}"
+                     TabIndex="2"
+                             Grid.Row="1" Height="24" Margin="0,66,0,31" KeyUp="mrptxt_KeyUp"
+                             />
+        </Grid>
+
+
+    </StackPanel>
+
+
+</Controls:Flyout>

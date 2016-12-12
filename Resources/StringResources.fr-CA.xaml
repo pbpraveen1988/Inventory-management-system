@@ -1,0 +1,110 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    
+    <system:String x:Key="Edit">संपादित करे</system:String>
+    <system:String x:Key="DELETE">हटायें</system:String>
+    <system:String x:Key="Update">संशोधन</system:String>
+    <system:String x:Key="Settings">व्यवस्था</system:String>
+    <system:String x:Key="Admin">व्यवस्थापक</system:String>
+    <system:String x:Key="Company">कंपनी</system:String>
+
+
+    <system:String x:Key="Address:">पता:</system:String>
+    <system:String x:Key="logo:">प्रतीक चिन्ह:</system:String>
+    <system:String x:Key="Record_of">आलेख:</system:String>
+
+    <system:String x:Key="Add_User">उपयोगकर्ता जोड़</system:String>
+    <system:String x:Key="Manage">प्रबंधित</system:String>
+    <system:String x:Key="Show_All">सभी उपयोगकर्ता दिखा</system:String>
+    <system:String x:Key="Discount">छूट</system:String>
+    <system:String x:Key="Vat">वेट</system:String>
+    <system:String x:Key="Account_Records">लेखा अभिलेख</system:String>
+    <system:String x:Key="Dealer">वितरक</system:String>
+    <system:String x:Key="Received">प्राप्त किया</system:String>
+    <system:String x:Key="Paid">भुगतान</system:String>
+
+
+    <system:String x:Key="FirstName">उपयोगकर्ता</system:String>
+    <system:String x:Key="Role">विशेषाधिकार</system:String>
+    <system:String x:Key="CreatedDate">दिनांक</system:String>
+    <system:String x:Key="ManageUser">उपयोगकर्ता प्रबंधन</system:String>
+
+    <system:String x:Key="Show_all_purchase">सभी क्रय दिखा</system:String>
+    <system:String x:Key="Add_Purchase">क्रय जोड़</system:String>
+    <system:String x:Key="Password">पासवर्ड</system:String>
+
+    <system:String x:Key="Date">दिनांक</system:String>
+    <system:String x:Key="customer">ग्राहक</system:String>
+    <system:String x:Key="product">उत्पाद</system:String>
+    <system:String x:Key="filter">निस्पंदन</system:String>
+    <system:String x:Key="sales">बिक्री</system:String>
+    <system:String x:Key="stock">भंडार</system:String>
+    <system:String x:Key="purchase">क्रय</system:String>
+    <system:String x:Key="export">निर्यात</system:String>
+    <system:String x:Key="import">आयात</system:String>
+    <system:String x:Key="hindi">हिन्दी</system:String>
+    <system:String x:Key="english">अंग्रेजी</system:String>
+
+    <system:String x:Key="Customer">ग्राहक</system:String>
+    <system:String x:Key="Add Customer">ग्राहक जोड़</system:String>
+    <system:String x:Key="Manage Customer">ग्राहक प्रबंधन</system:String>
+    <system:String x:Key="Show All Customer">सभी ग्राहक दिखा</system:String>
+    <system:String x:Key="CREATE">संचय</system:String>
+    <system:String x:Key="Edit Customer">ग्राहक संशोधन</system:String>
+
+    <system:String x:Key="Customer Records">ग्राहक अभिलेख</system:String>
+    <system:String x:Key="Name">नाम</system:String>
+    <system:String x:Key="Email">ईमेल</system:String>
+    <system:String x:Key="Address">पता</system:String>
+    <system:String x:Key="ContactNo">फ़ोन</system:String>
+
+    <system:String x:Key="Product">उत्पाद</system:String>
+    <system:String x:Key="Description">विवरण</system:String>
+    <system:String x:Key="In_Stock">भंडार उपलब्ध</system:String>
+    <!--<system:String x:Key="Date of Insertion">तिथि</system:String>-->
+
+    <system:String x:Key="Cheque_Payment">चेक भुगतान</system:String>
+    <system:String x:Key="Cash_Payment">नकद भुगतान</system:String>
+
+
+    <system:String x:Key="Add Product">उत्पाद जोड़</system:String>
+    <system:String x:Key="Manage Product">उत्पाद प्रबंधन</system:String>
+    <system:String x:Key="Show All Product">सभी उत्पाद दिखाये</system:String>
+
+    <system:String x:Key="Product Records">उत्पाद अभिलेख</system:String>
+    <system:String x:Key="Records From :">अभिलेख :</system:String>
+    <system:String x:Key="To:">से :</system:String>
+    <system:String x:Key="Records">अभिलेख :</system:String>
+    <system:String x:Key="Particular_Date">विशेष दिनांक</system:String>
+    <system:String x:Key="Between_Date">दिनांक के मध्य</system:String>
+    <system:String x:Key="Monthly">मासिक</system:String>
+    <system:String x:Key="All">सभी</system:String>
+
+
+    <system:String x:Key="Quantity">मात्रा</system:String>
+    <system:String x:Key="Price">कीमत</system:String>
+    <system:String x:Key="Amount">धनराशि</system:String>
+    <system:String x:Key="Advance">अग्रिम देना</system:String>
+    <system:String x:Key="Sales Records">बिक्री अभिलेख</system:String>
+    <system:String x:Key="Remaining Balance :">शेष धनराशि </system:String>
+    <system:String x:Key="Total :">धनराशि अब तक </system:String>
+    <system:String x:Key="FIND RECORD">अभिलेख खोजें</system:String>
+    <system:String x:Key="FIND CUSTOMER">ग्राहक खोजें</system:String>
+
+    <system:String x:Key="SEARCH">खोजें</system:String>
+    <system:String x:Key="Purchase Records">क्रय अभिलेख</system:String>
+    <system:String x:Key="Add Sales">बिक्री जोड़</system:String>
+    <system:String x:Key="Manage Sales">बिक्री प्रबंधन </system:String>
+    <system:String x:Key="SHOW ALL SALES">सभी बिक्री दिखाये</system:String>
+
+    <system:String x:Key="Add Stock">भंडार जोड़</system:String>
+    <system:String x:Key="Stock Record">भंडार अभिलेख</system:String>
+    <system:String x:Key="Show Stock">भंडार अभिलेख दिखाये</system:String>
+
+    <system:String x:Key="INVENTORY_MANAGEMENT_SYSTEM">प्रबंधन प्रणाली</system:String>
+
+    <!--
+    
+   All StringResources Goes Here -->
+</ResourceDictionary>

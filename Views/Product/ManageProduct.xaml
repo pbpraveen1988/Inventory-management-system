@@ -1,0 +1,103 @@
+﻿<Controls:Flyout x:Class="Inventory.Views.Product.ManageProduct"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:Inventory="clr-namespace:Inventory.Model"
+        mc:Ignorable="d"
+        d:DesignHeight="600"
+        d:DesignWidth="300"
+        Width="500"
+        x:Name="manageproductFlyout"
+        Header="Manage Product"
+        Position="Right"
+        Theme="Accent"
+        d:DataContext="{d:DesignInstance Inventory:ProductViewModel}"       
+        CloseCommand="{Binding ElementName=manageproductFlyout, Path=CloseCmd}" IsOpenChanged="manageproductFlyout_IsOpenChanged">
+
+
+    <Controls:Flyout.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ListView.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- for testing -->
+            <SolidColorBrush x:Key="ListViewBackground" Color="White" />
+
+            <Style x:Key="CustomListViewItemStyle"
+                   TargetType="{x:Type ListViewItem}"
+                   BasedOn="{StaticResource MetroListViewItem}">
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Style x:Key="CustomGridViewColumnHeader"
+                   TargetType="{x:Type GridViewColumnHeader}"
+                   BasedOn="{StaticResource MetroGridViewColumnHeader}">
+                <Style.Resources>
+                    <SolidColorBrush x:Key="GrayBrush8"
+                                     Color="#FFE0E0E0" />
+                </Style.Resources>
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
+        </ResourceDictionary>
+    </Controls:Flyout.Resources>
+
+
+    <ScrollViewer Grid.Row="1"
+         VerticalScrollBarVisibility="Auto">
+        <StackPanel  x:Name="selectFirst">
+            <Grid FlowDirection="LeftToRight" Width="508">
+
+                <ComboBox Width="200" x:Name="productname"
+        			Margin="41,0,259,10"
+                          TabIndex="0"
+        			Style="{DynamicResource VirtualisedMetroComboBox}"
+        			Controls:TextBoxHelper.Watermark="Search . . ."
+        			DisplayMemberPath="Pname"                        
+                    SelectedValuePath="Pid" 
+        			IsEditable="True"
+        			ItemsSource="{Binding Products}"
+        			MaxDropDownHeight="125"
+        			        SelectionChanged="productname_SelectionChanged"                          
+                          />
+
+            </Grid>
+            <StackPanel Margin="10 0 10 0" x:Name="datastack" Orientation="Vertical" Height="247">
+                <TextBlock  Visibility="Hidden" x:Name="pid"  Text="{Binding Product.Pid ,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                <TextBlock  Visibility="Hidden" x:Name="stkqty"  Text="{Binding Product.StockQty ,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                <TextBox x:Name="Pname"
+        			Controls:TextBoxHelper.Watermark="Enter the Product Name"
+                         TabIndex="1"
+        			Text="{Binding Product.Pname,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, ValidatesOnDataErrors=True,
+                        NotifyOnValidationError=True}"                             
+                             />
+                <TextBox Margin="0,5,0,0" x:Name="Description"
+        			Controls:TextBoxHelper.Watermark="Enter Discription"
+        			Text="{Binding  Product.Description,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                         TabIndex="2"
+                             />
+                <TextBox Margin="0,5,0,0" x:Name="mrptxt"
+        			Controls:TextBoxHelper.Watermark="Enter Mrp"
+                         TabIndex="3"
+        			Text="{Binding  Product.Mrp,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" KeyUp="mrptxt_KeyUp"
+                             />
+                <Grid 
+                	Margin="10" Height="54" Width="417">
+                    <Button Style="{DynamicResource SquareButtonStyle}"
+                		Margin="51,8,53,10"
+                            TabIndex="4"
+                		Content="{DynamicResource Update}" Command="{Binding Cmdupdate}" 
+                		x:Name="CreateUpdate" IsDefault="True" />
+                </Grid>
+            </StackPanel>
+
+        </StackPanel>
+
+    </ScrollViewer>
+
+</Controls:Flyout>

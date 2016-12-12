@@ -1,0 +1,102 @@
+﻿<Controls:Flyout  x:Class="Inventory.Views.Reports.AccountInfo"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 xmlns:Inventory="clr-namespace:Inventory.Model"
+                 d:DataContext="{d:DesignInstance Inventory:CustomerViewModel}" 
+                 mc:Ignorable="d"                  
+                 d:DesignHeight="600"
+                 d:DesignWidth="300"
+                 Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Controls:MetroWindow}, Path=ActualWidth, Mode=OneWay}"
+                 x:Name="accountinfoFlyout"
+                 Header="{DynamicResource Account_Records}"
+                 Position="Right"
+                 Theme="Accent"
+                 CloseCommand="{Binding ElementName=accountinfoFlyout, Path=CloseCmd}" IsOpenChanged="accountinfoFlyout_IsOpenChanged">
+
+
+    <Controls:Flyout.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ListView.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro.Resources;component/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- for testing -->
+            <SolidColorBrush x:Key="ListViewBackground" Color="White" />
+
+            <Style x:Key="CustomListViewItemStyle"
+                   TargetType="{x:Type ListViewItem}"
+                   BasedOn="{StaticResource MetroListViewItem}">
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Style x:Key="CustomGridViewColumnHeader"
+                   TargetType="{x:Type GridViewColumnHeader}"
+                   BasedOn="{StaticResource MetroGridViewColumnHeader}">
+                <Style.Resources>
+                    <SolidColorBrush x:Key="GrayBrush8"
+                                     Color="#FFE0E0E0" />
+                </Style.Resources>
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
+        </ResourceDictionary>
+    </Controls:Flyout.Resources>
+
+
+    <StackPanel Orientation="Vertical"  Margin="96,0,-350,0">
+        <Grid Margin="-40,0,-33,0" Height="39">
+            <Label x:Name="datelbl" Content="Date" Width="204"  VerticalAlignment="Top" FontSize="16" FontFamily="Bold" HorizontalAlignment="Left" Margin="213,0,0,0"/>
+            <Label  Content="Record Upto :" Margin="77,0,0,0" HorizontalAlignment="Left" FontSize="16" FontFamily="bold" Width="176"/>
+        </Grid>
+        <Grid Margin="-136,10,0,10" HorizontalAlignment="Left" Width="680">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel/>
+            <ScrollViewer Grid.Row="1"
+                                  VerticalScrollBarVisibility="Auto" Margin="35,0,-84,0" HorizontalAlignment="Left" Width="729" Height="260" VerticalAlignment="Bottom">
+                <StackPanel Orientation="Vertical">
+
+                    <Grid Height="50" HorizontalAlignment="Right" Width="68">
+                        <Button                     
+                    		Style="{DynamicResource MetroCircleButtonStyle}" Click="Button_Click" ToolTip="Download" Margin="-123,0,141,0" HorizontalAlignment="Right" Width="50" Height="50" VerticalAlignment="Top" >
+                            <Rectangle Width="20"
+                    			Height="20"
+                    			Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill"
+                    					Visual="{DynamicResource appbar_download}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </Grid>
+                    <DataGrid  Style="{DynamicResource AzureDataGrid}"
+                		Height="200"                             
+                		Margin="0, 10, 0, 0"
+                		RenderOptions.ClearTypeHint="Enabled"
+                		TextOptions.TextFormattingMode="Display"
+                		HeadersVisibility="All"
+                		SelectionUnit="FullRow" 
+                		CanUserAddRows="false"
+                           ItemsSource="{Binding}"
+                               
+                		BorderThickness="0" x:Name="datalist"  
+                	    	AutoGenerateColumns="True" Width="442"/>
+
+                </StackPanel>
+
+            </ScrollViewer>
+
+        </Grid>
+        <Label Content="Note : *In Remaining Balance column (-) sign represnt that Customer has credited extra amount." FontSize="13" Height="28" Margin="44,0,-59,0" HorizontalAlignment="Left" Width="569"/>
+    </StackPanel>
+
+</Controls:Flyout>

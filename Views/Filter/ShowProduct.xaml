@@ -1,0 +1,184 @@
+﻿<Controls:Flyout x:Class="Inventory.Views.Filter.ShowProduct"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 mc:Ignorable="d"
+          
+    Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Controls:MetroWindow}, Path=ActualWidth, Mode=OneWay}"
+                 x:Name="showProductFlyout"
+                 Header="{DynamicResource Product Records}"
+                 Position="Right"
+                 Theme="Accent"
+                 CloseCommand="{Binding ElementName=showProductFlyout, Path=CloseCmd}">
+    <Controls:Flyout.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ListView.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro.Resources;component/Icons.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+            <!-- for testing -->
+            <SolidColorBrush x:Key="ListViewBackground" Color="White" />
+            <Style x:Key="MetroListView"
+           TargetType="{x:Type ListView}">
+                <Setter Property="BorderBrush"
+                Value="{DynamicResource BlackBrush}" />
+                <Setter Property="Background"
+                Value="{DynamicResource WhiteBrush}" />
+                <Setter Property="BorderThickness"
+                Value="0 1 0 0" />
+                <Setter Property="ScrollViewer.CanContentScroll"
+                Value="False" />
+                <Setter Property="AlternationCount"
+                Value="2" />
+
+                <!-- Things taken from the original template. -->
+                <Setter Property="SnapsToDevicePixels"
+                Value="true" />
+                <Setter Property="OverridesDefaultStyle"
+                Value="true" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                Value="Auto" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                Value="Auto" />
+                <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListView">
+                            <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="true">
+                                <ScrollViewer Padding="{TemplateBinding Padding}"
+                                      Style="{DynamicResource MetroGridViewScrollViewerStyle}">
+                                    <ItemsPresenter />
+                                </ScrollViewer>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsGrouping"
+                                 Value="true">
+                                    <Setter Property="ScrollViewer.CanContentScroll"
+                                    Value="false" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled"
+                                 Value="false">
+                                    <Setter TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="{DynamicResource GrayBrush9}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="VirtualisedMetroListView"
+           TargetType="{x:Type ListView}"
+           BasedOn="{StaticResource MetroListView}">
+                <Setter Property="VirtualizingStackPanel.IsVirtualizing"
+                Value="True" />
+                <Setter Property="VirtualizingStackPanel.VirtualizationMode"
+                Value="Recycling" />
+                <Setter Property="ScrollViewer.IsDeferredScrollingEnabled"
+                Value="True" />
+                <Setter Property="ScrollViewer.CanContentScroll"
+                Value="True" />
+            </Style>
+
+
+            <Style x:Key="CustomListViewItemStyle"
+                   TargetType="{x:Type ListViewItem}"
+                   BasedOn="{StaticResource MetroListViewItem}">
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Style x:Key="CustomGridViewColumnHeader"
+                   TargetType="{x:Type GridViewColumnHeader}"
+                   BasedOn="{StaticResource MetroGridViewColumnHeader}">
+                <Style.Resources>
+                    <SolidColorBrush x:Key="GrayBrush8"
+                                     Color="#FFE0E0E0" />
+                </Style.Resources>
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
+        </ResourceDictionary>
+    </Controls:Flyout.Resources>
+
+    <StackPanel Orientation="Vertical"  Margin="30">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <Grid Height="110">
+                    <Label x:Name="cname" Style="{DynamicResource DescriptionHeaderStyle}" Margin="209,1,0,61" Width="323" Foreground="Gainsboro" HorizontalAlignment="Left" />
+                    <Label Content="Name" x:Name="ldate" Style="{DynamicResource DescriptionHeaderStyle}" Margin="416,36,0,26" Width="323" Foreground="Gainsboro" HorizontalAlignment="Left" />
+                    <Label Content="Name" x:Name="fdate" Style="{DynamicResource DescriptionHeaderStyle}" Margin="209,35,0,27" Width="161" Foreground="Gainsboro" HorizontalAlignment="Left" />
+                    <Label Content="{DynamicResource Records From :}" x:Name="fdate_Copy" Style="{DynamicResource DescriptionHeaderStyle}" Margin="0,35,0,27" Width="161" Foreground="Gainsboro" HorizontalAlignment="Left" />
+                    <Label Content="{DynamicResource Product}" x:Name="fdate_Copy1" Style="{DynamicResource DescriptionHeaderStyle}" Margin="0,6,0,56" Width="161" Foreground="Gainsboro" HorizontalAlignment="Left" />
+
+                    <Label Content="{DynamicResource In_Stock}" x:Name="stock" Style="{DynamicResource DescriptionHeaderStyle}" Margin="0,62,0,0" Width="161" Foreground="Gainsboro" HorizontalAlignment="Left" />
+                    <Label Content="Qty" x:Name="stockqty" Style="{DynamicResource DescriptionHeaderStyle}" Margin="209,62,0,0" Width="161" Foreground="Gainsboro" HorizontalAlignment="Left" />
+
+                    <Button
+                      
+                    	Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Download" Margin="0,35,10,0" HorizontalAlignment="Right" Width="50" Height="50" VerticalAlignment="Top" Click="Button_Click">
+                        <Rectangle Width="20"
+                    		Height="20"
+                    		Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill"
+                    				Visual="{DynamicResource appbar_download}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </Grid>
+            </StackPanel>
+            <ScrollViewer Grid.Row="1"
+                                  VerticalScrollBarVisibility="Auto">
+                <StackPanel Orientation="Vertical">                   
+
+                    <DataGrid  Style="{DynamicResource AzureDataGrid}"
+                  Height="200"
+                  Margin="0, 10, 0, 0"
+                  RenderOptions.ClearTypeHint="Enabled"
+                  TextOptions.TextFormattingMode="Display"
+                  HeadersVisibility="All"
+                  SelectionUnit="FullRow"  CanUserAddRows="false"
+                  BorderThickness="0" x:Name="datalist"   AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Customer.Cname}"
+                                    Header="{DynamicResource Customer}" />
+
+                            <DataGridTextColumn Header="{DynamicResource Quantity}"
+                                    Binding="{Binding Quantity}" />
+
+                            <DataGridTextColumn Header="{DynamicResource Price}"
+                                    Binding="{Binding Price}" />
+
+                            <DataGridTextColumn 
+                                    Binding="{Binding TotalAmount}"
+                                    Header="{DynamicResource Amount}" />
+                            <DataGridTextColumn 
+                                    Binding="{Binding Advance}"
+                                    Header="{DynamicResource Advance}" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+
+    </StackPanel>
+
+</Controls:Flyout>

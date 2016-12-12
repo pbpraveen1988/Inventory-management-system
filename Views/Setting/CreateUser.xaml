@@ -1,0 +1,136 @@
+﻿<Controls:Flyout x:Class="Inventory.Views.Setting.CreateUser"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"      
+        xmlns:Inventory="clr-namespace:Inventory.Model"
+     
+      mc:Ignorable="d" 
+      d:DesignHeight="300"
+                 x:Name="Set_AppFlyout"
+                 Header="{DynamicResource Add_User}"                  
+                 Position="Top"
+                 Theme="Accent"
+                 
+                 CloseCommand="{Binding ElementName=Set_AppFlyout, Path=CloseCmd}" Width="471.6" IsOpenChanged="Set_AppFlyout_IsOpenChanged"              
+                 >
+    <Controls:Flyout.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ListView.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro.Resources;component/Icons.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- for testing -->
+            <SolidColorBrush x:Key="ListViewBackground" Color="White" />
+            <Style x:Key="MetroListView"
+           TargetType="{x:Type ListView}">
+                <Setter Property="BorderBrush"
+                Value="{DynamicResource BlackBrush}" />
+                <Setter Property="Background"
+                Value="{DynamicResource WhiteBrush}" />
+                <Setter Property="BorderThickness"
+                Value="0 1 0 0" />
+                <Setter Property="ScrollViewer.CanContentScroll"
+                Value="False" />
+                <Setter Property="AlternationCount"
+                Value="2" />
+
+                <!-- Things taken from the original template. -->
+                <Setter Property="SnapsToDevicePixels"
+                Value="true" />
+                <Setter Property="OverridesDefaultStyle"
+                Value="true" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                Value="Auto" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                Value="Auto" />
+                <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListView">
+                            <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="true">
+                                <ScrollViewer Padding="{TemplateBinding Padding}"
+                                      Style="{DynamicResource MetroGridViewScrollViewerStyle}">
+                                    <ItemsPresenter />
+                                </ScrollViewer>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsGrouping"
+                                 Value="true">
+                                    <Setter Property="ScrollViewer.CanContentScroll"
+                                    Value="false" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled"
+                                 Value="false">
+                                    <Setter TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="{DynamicResource GrayBrush9}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <Style x:Key="CustomListViewItemStyle"
+                   TargetType="{x:Type ListViewItem}"
+                   BasedOn="{StaticResource MetroListViewItem}">
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Style x:Key="CustomGridViewColumnHeader"
+                   TargetType="{x:Type GridViewColumnHeader}"
+                   BasedOn="{StaticResource MetroGridViewColumnHeader}">
+                <Style.Resources>
+                    <SolidColorBrush x:Key="GrayBrush8"
+                                     Color="#FFE0E0E0" />
+                </Style.Resources>
+                <Setter Property="Foreground"
+                        Value="Black" />
+            </Style>
+            <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
+        </ResourceDictionary>
+    </Controls:Flyout.Resources>
+
+    <Grid Width="290" Height="300" VerticalAlignment="Top">
+        <TextBox Margin="49,18,43,256" x:Name="Usertxt"
+                		Controls:TextBoxHelper.Watermark="Enter User Name"                              
+                		Text="{Binding CompanyName}" Height="21"       
+                        TabIndex="0"     />
+
+        <PasswordBox HorizontalAlignment="Left" x:Name="passwordtxt" Margin="49,49,0,0" VerticalAlignment="Top" TabIndex="1" Width="198" Controls:TextBoxHelper.Watermark="PASSWORD"  Height="26"/>
+
+        <ComboBox  x:Name="showUserCmb"             
+                    Controls:TextBoxHelper.ClearTextButton="True"
+            	Controls:TextBoxHelper.Watermark="Please Select ..."
+            	Margin="0,82,43,0"      
+                   TabIndex="2"
+            	IsEnabled="{Binding IsChecked, ElementName=enabledcustomerSwitch}"
+            	IsEditable="False" Height="26" VerticalAlignment="Top"  HorizontalAlignment="Right" Width="198">
+            <ComboBoxItem>
+                <TextBlock FontWeight="Bold"><Run Text="Admin"/></TextBlock>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <TextBlock FontWeight="Bold"><Run Text="Manager"/></TextBlock>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <TextBlock FontWeight="Bold"><Run Text="End_User"/></TextBlock>
+            </ComboBoxItem>
+        </ComboBox>
+        <Button Style="{DynamicResource SquareButtonStyle}"
+                                Margin="28,192,20,75"
+                                TabIndex="3" IsDefault="True"
+                                Content="{DynamicResource CREATE}" Command="{Binding SubmitPurchaseCommand}" Click="Button_Click" />
+
+    </Grid>
+</Controls:Flyout>
