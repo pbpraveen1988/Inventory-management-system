@@ -1,0 +1,162 @@
+﻿<Controls:MetroWindow x:Class="Inventory.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"   
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"     
+        Title="{DynamicResource INVENTORY_MANAGEMENT_SYSTEM}" 
+        Height="480"
+        Width="1000" 
+        WindowStartupLocation="CenterScreen"
+        xmlns:Inventory="clr-namespace:Inventory.Model"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        mc:Ignorable="d"
+        d:DesignHeight="600"
+        d:DesignWidth="800"
+      
+        xmlns:Views="clr-namespace:Inventory.Views"        
+        d:DataContext="{d:DesignInstance Inventory:MainViewModel}"
+        xmlns:SalesViews="clr-namespace:Inventory.Views.Sales"
+        xmlns:productViews="clr-namespace:Inventory.Views.Product"
+        xmlns:purchaseViews="clr-namespace:Inventory.Views.Purchase"
+        xmlns:filterViews="clr-namespace:Inventory.Views.Filter"
+        xmlns:SettingViews="clr-namespace:Inventory.Views.Setting"
+        xmlns:ReportViews="clr-namespace:Inventory.Views.Reports"
+        xmlns:PaymentViews="clr-namespace:Inventory.Views.Payment"
+       
+                      Closing="MetroWindow_Closing"
+        Dialog:DialogParticipation.Register="{Binding}" 
+                      Loaded="MetroWindow_Loaded" Icon="AppMan.ico"
+                      >
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <Ellipse x:Key="AppThemeMenuIcon"
+                     x:Shared="False"
+                     Width="16"
+                     Height="16"
+                     StrokeThickness="1"
+                     Stroke="{Binding BorderColorBrush, Mode=OneWay}"
+                     Fill="{Binding ColorBrush, Mode=OneWay}" />
+            <Ellipse x:Key="AccentMenuIcon"
+                     x:Shared="False"
+                     Width="16"
+                     Height="16"
+                     Fill="{Binding ColorBrush, Mode=OneWay}" />
+            <Style x:Key="AppThemeMenuItemStyle"
+                   TargetType="{x:Type MenuItem}"
+                   BasedOn="{StaticResource MetroMenuItem}">
+                <Setter Property="Command"
+                        Value="{Binding ChangeAccentCommand}" />
+                <Setter Property="Icon"
+                        Value="{StaticResource AppThemeMenuIcon}" />
+                <Setter Property="Header"
+                        Value="{Binding Name, Mode=OneWay}" />
+            </Style>
+            <Style x:Key="AccentColorMenuItemStyle"
+                   TargetType="{x:Type MenuItem}"
+                   BasedOn="{StaticResource MetroMenuItem}">
+                <Setter Property="Command"
+                        Value="{Binding ChangeAccentCommand}" />
+                <Setter Property="Icon"
+                        Value="{StaticResource AccentMenuIcon}" />
+                <Setter Property="Header"
+                        Value="{Binding Name, Mode=OneWay}" />
+            </Style>
+            <Dialog:CustomDialog x:Key="CustomDialogTest"
+                                 Title="This dialog allows arbitrary content."
+                                 x:Name="CustomTestDialog">
+                <TextBlock Height="200" x:Name="MessageTextBlock" Text="{Binding Artists[0].Name}" Foreground="{DynamicResource AccentColorBrush}" />
+            </Dialog:CustomDialog>
+        </ResourceDictionary>
+    </Window.Resources>
+
+
+
+    <Controls:MetroContentControl>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Menu Grid.Row="0"
+                  Margin="5"
+                  VerticalAlignment="Stretch"
+                  HorizontalAlignment="Left">
+                <MenuItem Header="Theme"
+                          ItemsSource="{Binding AppThemes, Mode=OneWay}"
+                          ItemContainerStyle="{StaticResource AppThemeMenuItemStyle}" />
+                <MenuItem Header="Accent"
+                          ItemsSource="{Binding AccentColors, Mode=OneWay}"
+                          ItemContainerStyle="{StaticResource AccentColorMenuItemStyle}" />
+                <MenuItem Header="Language"
+                          ItemContainerStyle="{StaticResource AccentColorMenuItemStyle}" >
+                    <MenuItem Header="{DynamicResource hindi}" Click="MenuItem_Click"/>
+                    <MenuItem Header="{DynamicResource english}" Click="MenuItem_Click_1"></MenuItem>
+
+                </MenuItem>
+                <!--    <MenuItem Header="Settings" x:Name="settingmenu" Click="settingmenu_Click"></MenuItem>
+               <MenuItem Header="menutext" Click="MenuItem_Click_2"></MenuItem>-->
+            </Menu>
+            <Controls:MetroAnimatedSingleRowTabControl Grid.Row="1" x:Name="MainTabControl">
+
+                <Views:TilesExample DataContext="{Binding}" />
+            </Controls:MetroAnimatedSingleRowTabControl>
+            <StatusBar Grid.Row="2">
+                <Button Click="Button_Click_2" Height="50" 
+                    ToolTip="Visit Stack Infotech"
+                        Cursor="Hand">
+                    <Image Source="Resources/logo4.png"></Image>
+                </Button>
+                <Separator Style="{StaticResource MetroStatusBarSeparator}" />
+                First Floor Raju Complex GE Road Bhilai 3, Contact No: 8819990007,7566777726
+               
+
+            </StatusBar>
+
+        </Grid>
+    </Controls:MetroContentControl>
+
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl x:Name="flyoutsControl">
+            <Views:CustomerView/>
+            <Views:AddCustomer/>
+            <Views:ShowCustomer/>
+            <SalesViews:SalesFlyout/>
+            <SalesViews:AddSales/>
+            <SalesViews:ShowSales/>
+            <productViews:ProductView/>
+            <productViews:AddProduct/>
+            <productViews:ShowProduct/>
+            <purchaseViews:PurchaseFlyout />
+            <purchaseViews:ShowPurchase/>
+            <!--10-->
+            <purchaseViews:AddPurchase/>
+            <Views:EditCustomer/>
+            <filterViews:ShowFilter/>
+            <filterViews:FindCustomer/>
+            <filterViews:ProductSearch/>
+            <filterViews:ShowRecord/>
+            <filterViews:ShowProduct/>
+            <!--17-->
+            <productViews:ManageProduct/>
+            <SettingViews:Set_App/>
+            <ReportViews:ReportView/>
+            <!--20-->
+            <ReportViews:GridResult/>
+            <SettingViews:CreateUser/>
+            <SettingViews:AdminView/>
+            <SettingViews:ShowAllUser/>
+            <SettingViews:ManageUser/>
+            <SalesViews:ItemsSalesAdd/>
+            <purchaseViews:ItemPurchaseAdd/>
+            <ReportViews:AccountInfo/>
+            <PaymentViews:PaymentAccount/>        <!--29-->
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+
+
+</Controls:MetroWindow>
